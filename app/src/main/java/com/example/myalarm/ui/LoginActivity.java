@@ -257,7 +257,7 @@ public class LoginActivity extends AppCompatActivity implements
             u.setPhone(etPhoneString);
             u.setUserName(etUserNameString);
             u.setSex(sex);
-            u.setBirth(sex);
+            u.setBirth(btnDate.getText().toString().trim());
             if (u.save() > 0) {
                 type = 0;
                 RefreshUI();
