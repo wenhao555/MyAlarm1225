@@ -37,7 +37,10 @@ import java.util.List;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CalendarViewFragment.OnDateClickListener,
+public class LoginActivity extends AppCompatActivity implements
+        View.OnClickListener,
+        CalendarViewFragment.OnDateClickListener,
+        CalendarViewPagerFragment.OnPageChangeListener,
         CalendarViewFragment.OnDateCancelListener {
 
     private TextView tvTitle, tvDate;
@@ -177,6 +180,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btnDate.setOnClickListener(this);
     }
 
+    @Override
+    public void onPageChange(int year, int month) {
+        tvDate.setText(year + "-" + month);
+    }
+
     private void initFragment() {
         dateBox.setVisibility(View.VISIBLE);
         FragmentManager fm = getSupportFragmentManager();
@@ -194,19 +202,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
         String etBirthString = btnDate.getText().toString().trim();
-        if (etBirthString.equals("选择生日")) {
-            Toast.makeText(this, "请输入出生日期", Toast.LENGTH_SHORT).show();
-            return;
+        if (type == 1) {
+            if (etBirthString.equals("选择生日")) {
+                Toast.makeText(this, "请输入出生日期", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         String etUserNameString = etUserName.getText().toString().trim();
-        if (TextUtils.isEmpty(etUserNameString)) {
-            Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
-            return;
+        if (type == 1) {
+            if (TextUtils.isEmpty(etUserNameString)) {
+                Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         String etPhoneString = etPhone.getText().toString().trim();
-        if (TextUtils.isEmpty(etPhoneString)) {
-            Toast.makeText(this, "请输入电话号", Toast.LENGTH_SHORT).show();
-            return;
+        if (type == 1) {
+            if (TextUtils.isEmpty(etPhoneString)) {
+                Toast.makeText(this, "请输入电话号", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         String etPassString = etPass.getText().toString().trim();

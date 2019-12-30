@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.myalarm.R;
 import com.example.myalarm.db.Users;
+import com.example.myalarm.ui.LoginActivity;
 import com.example.myalarm.ui.activity.AboutActivity;
 import com.example.myalarm.ui.activity.UserCenterActivity;
 import com.orm.SugarRecord;
@@ -69,6 +71,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                                 Users users = usersList.get(0);
                                 users.setPassword(editText.getText().toString().trim());
                                 users.update();
+                                Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .show();
@@ -78,6 +81,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), AboutActivity.class));
                 break;
             case R.id.outLogin:
+                startActivity(new Intent(getActivity(), LoginActivity.class));
                 getActivity().finish();
                 break;
         }
