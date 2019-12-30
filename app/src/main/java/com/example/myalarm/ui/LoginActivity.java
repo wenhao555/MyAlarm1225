@@ -18,6 +18,7 @@ import com.example.myalarm.Global;
 import com.example.myalarm.MyService;
 import com.example.myalarm.R;
 import com.example.myalarm.db.Users;
+import com.example.myalarm.ui.activity.Main2Activity;
 import com.example.myalarm.utils.SetRing;
 
 import java.text.ParseException;
@@ -141,7 +142,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (!usersList.isEmpty()) {
                 Users u = usersList.get(0);
                 Global.getInstance().setMe(u);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, Main2Activity.class));
                 finish();
             } else {
                 Toast.makeText(this, "登录错误", Toast.LENGTH_SHORT).show();
