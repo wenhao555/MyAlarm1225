@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemBox"
+    android:layout_width="match_parent"
+    android:padding="3dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvFlag"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="生日"
+        android:padding="10dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:visibility="invisible"
+        android:background="@color/colorPrimary"/>
+
+    <ImageView
+        android:id="@+id/imgFlag"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/birth" />
+
+    <TextView
+        android:id="@+id/tvname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_toRightOf="@id/tvFlag"
+        android:textColor="#000"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tvtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvname"
+        android:layout_marginTop="2dp"
+        android:text="infos"
+        android:layout_toRightOf="@id/tvFlag"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvtime"
+        android:text="infos"
+        android:layout_toRightOf="@id/tvFlag"
+        android:textSize="16sp" />
+
+    <ToggleButton
+        android:id="@+id/tbOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:layout_centerVertical="true" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true" />
+</RelativeLayout>

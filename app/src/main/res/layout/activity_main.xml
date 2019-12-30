@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back"
+    tools:context=".ui.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/topBox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:id="@+id/tvname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_centerVertical="true"
+            android:text="name"
+            android:textColor="#FFF"
+            android:textSize="25sp"/>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:drawable/ic_input_add"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btnAdd"
+            android:background="@android:drawable/ic_search_category_default"
+            android:padding="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"
+            android:layout_alignParentBottom="true"></RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/alarmList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBox"></ListView>
+
+    <RelativeLayout
+        android:id="@+id/searchBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topBox"
+        android:layout_margin="2dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorAccent"
+            android:padding="4dp"
+            android:text="确定"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/searchLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tvSearch"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="3dp" />
+
+        <EditText
+            android:id="@+id/etKeyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchLine"
+            android:hint="请输入关键词"/>
+
+        <TextView
+            android:id="@+id/tvTimeFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/etKeyword"
+            android:text="时间："/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTimeFlag"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnStartTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="start"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="--"/>
+
+            <Button
+                android:id="@+id/btnEndTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="end"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
