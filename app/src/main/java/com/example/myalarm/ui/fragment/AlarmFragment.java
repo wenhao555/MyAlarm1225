@@ -66,8 +66,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnAdd) {
-//            ShowPopMenu(v);
-            startActivity(new Intent(getActivity(), AlarmActivity.class));
+            ShowPopMenu(v);
         }
     }
 

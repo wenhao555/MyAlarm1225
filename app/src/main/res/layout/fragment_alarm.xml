@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.fragment.AlarmFragment">
 
     <RelativeLayout
-        android:background="@color/colorPrimary"
         android:id="@+id/topBox"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/tvname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
             android:layout_centerVertical="true"
-            android:text="name"
+            android:layout_margin="15dp"
+            android:text="闹铃"
             android:textColor="#FFF"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -34,7 +35,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimary"
-            android:layout_alignParentBottom="true"></RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"></RelativeLayout>
     </RelativeLayout>
-</FrameLayout>
+
+    <ListView
+        android:id="@+id/alarmList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/topBox"></ListView>
+
+</LinearLayout>
