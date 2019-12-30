@@ -39,8 +39,7 @@ import java.util.List;
 public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         CalendarViewPagerFragment.OnPageChangeListener,
         CalendarViewFragment.OnDateClickListener,
-        CalendarViewFragment.OnDateCancelListener
-{
+        CalendarViewFragment.OnDateCancelListener {
 
     private int type = 0;
     private int notice = 0;
@@ -69,8 +68,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     private LinearLayout dateBox;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
         initView();
@@ -78,8 +76,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         initData();
     }
 
-    private void initFragment()
-    {
+    private void initFragment() {
         dateBox.setVisibility(View.VISIBLE);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tx = fm.beginTransaction();
@@ -90,47 +87,38 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onDateCancel(CalendarDate calendarDate)
-    {
+    public void onDateCancel(CalendarDate calendarDate) {
     }
 
-    private void SetTheme()
-    {
+    private void SetTheme() {
         topBox.setBackgroundColor(getResources().getColor(themeColors[getThemeIndex()][0]));
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         SetTheme();
     }
 
     @Override
-    public void onDateClick(CalendarDate calendarDate)
-    {
+    public void onDateClick(CalendarDate calendarDate) {
         int year = calendarDate.getSolar().solarYear;
         int month = calendarDate.getSolar().solarMonth;
         int day = calendarDate.getSolar().solarDay;
         tvDate.setText(year + "-" + month);
         mDate = (year + "-" + month + "-" + day);
-//        frameLayout.setVisibility(View.GONE);
     }
 
     @Override
-    public void onPageChange(int year, int month)
-    {
+    public void onPageChange(int year, int month) {
         tvDate.setText(year + "-" + month);
     }
 
-    private void initData()
-    {
-        try
-        {
+    private void initData() {
+        try {
             long ids = getIntent().getExtras().getLong("data");
             alarms = Alarms.findById(Alarms.class, ids);
-            if (alarms != null)
-            {
+            if (alarms != null) {
                 etName.setText(alarms.getName());
                 etInfo.setText(alarms.getInfos());
                 String[] times = alarms.getRemark().split(" ");
@@ -143,17 +131,14 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
                 radio2.setChecked(alarms.getNotice() == 2);
                 radio3.setChecked(alarms.getNotice() == 3);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.btnAdd:
                 submit();
                 break;
@@ -176,19 +161,16 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private void setTime()
-    {
+    private void setTime() {
         TimePickerView pvTime = new TimePickerView(this, TimePickerView.Type.HOURS_MINS);
         pvTime.setTime(new Date());
         pvTime.setCyclic(false);
         pvTime.setCancelable(true);
         //时间选择后回调
-        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener()
-        {
+        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
 
             @Override
-            public void onTimeSelect(Date date)
-            {
+            public void onTimeSelect(Date date) {
                 mTime = TimeUtil.getTimeHHmm(date);
                 btnTime.setText(mTime);
             }
@@ -196,20 +178,17 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         pvTime.show();
     }
 
-    private void setDate()
-    {
+    private void setDate() {
         TimePickerView pvTime = new TimePickerView(this,
                 TimePickerView.Type.YEAR_MONTH_DAY);
         pvTime.setTime(new Date());
         pvTime.setCyclic(false);
         pvTime.setCancelable(true);
         //时间选择后回调
-        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener()
-        {
+        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
 
             @Override
-            public void onTimeSelect(Date date)
-            {
+            public void onTimeSelect(Date date) {
                 mDate = TimeUtil.getTimeYMD(date);
                 btnDate.setText(mDate);
             }
@@ -217,8 +196,7 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         pvTime.show();
     }
 
-    private void initView()
-    {
+    private void initView() {
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnBack = (Button) findViewById(R.id.btnBack);
@@ -239,61 +217,46 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         radio2 = (RadioButton) findViewById(R.id.radio2);
         radio3 = (RadioButton) findViewById(R.id.radio3);
 
-        radioBirth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        radioBirth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     type = 0;
                 }
             }
         });
 
-        radioEvent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        radioEvent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     type = 1;
                 }
             }
         });
 
-        radio0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        radio0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     notice = 0;
                 }
             }
         });
 
-        radio1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        radio1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     notice = 1;
-                    SetRing.getRingtoneTitleList(AlarmActivity.this, RingtoneManager.TYPE_ALARM, new SetRing.OnRingFileListener()
-                    {
+                    SetRing.getRingtoneTitleList(AlarmActivity.this, RingtoneManager.TYPE_ALARM, new SetRing.OnRingFileListener() {
                         @Override
-                        public void onSelect(File file)
-                        {
+                        public void onSelect(File file) {
 
                         }
 
                         @Override
-                        public void onRingtone(String url)
-                        {
+                        public void onRingtone(String url) {
                             fileName = url;
                         }
                     });
@@ -301,37 +264,28 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
             }
         });
 
-        radio2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        radio2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     notice = 2;
                 }
             }
         });
 
-        radio3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        radio3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     notice = 3;
-                    SetRing.getRingtoneTitleList(AlarmActivity.this, RingtoneManager.TYPE_ALARM, new SetRing.OnRingFileListener()
-                    {
+                    SetRing.getRingtoneTitleList(AlarmActivity.this, RingtoneManager.TYPE_ALARM, new SetRing.OnRingFileListener() {
                         @Override
-                        public void onSelect(File file)
-                        {
+                        public void onSelect(File file) {
 
                         }
 
                         @Override
-                        public void onRingtone(String url)
-                        {
+                        public void onRingtone(String url) {
                             fileName = url;
                         }
                     });
@@ -348,34 +302,28 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         dateBox.setVisibility(View.GONE);
     }
 
-    public List<String> getRingtoneTitleList(int type)
-    {
+    public List<String> getRingtoneTitleList(int type) {
         List<String> resArr = new ArrayList<String>();
         RingtoneManager manager = new RingtoneManager(AlarmActivity.this);
         manager.setType(type);
         Cursor cursor = manager.getCursor();
-        if (cursor.moveToFirst())
-        {
-            do
-            {
+        if (cursor.moveToFirst()) {
+            do {
                 resArr.add(cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX));
             } while (cursor.moveToNext());
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AlarmActivity.this);
         final String[] sChoice = new String[resArr.size()];
-        for (int i = 0; i < resArr.size(); i++)
-        {
+        for (int i = 0; i < resArr.size(); i++) {
             sChoice[i] = resArr.get(i);
         }
         builder.setSingleChoiceItems(
                 sChoice,
                 0,
-                new DialogInterface.OnClickListener()
-                {
+                new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         //添加操作...
 //                        onRingFileListener.onSelect(vcardList.get(which));
 
@@ -387,39 +335,33 @@ public class AlarmActivity extends BaseActivity implements View.OnClickListener,
         return resArr;
     }
 
-    private void submit()
-    {
+    private void submit() {
         // validate
         String etNameString = etName.getText().toString().trim();
-        if (TextUtils.isEmpty(etNameString))
-        {
+        if (TextUtils.isEmpty(etNameString)) {
             Toast.makeText(this, "请输入名称", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String etInfoString = etInfo.getText().toString().trim();
-        if (TextUtils.isEmpty(etInfoString))
-        {
+        if (TextUtils.isEmpty(etInfoString)) {
             Toast.makeText(this, "请输入信息", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(mTime))
-        {
+        if (TextUtils.isEmpty(mTime)) {
             Toast.makeText(this, "请选择时间", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (TextUtils.isEmpty(mDate))
-        {
+        if (TextUtils.isEmpty(mDate)) {
             Toast.makeText(this, "请选择日期", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // TODO validate success, do something
 
-        if (alarms == null)
-        {
+        if (alarms == null) {
             alarms = new Alarms();
         }
         alarms.setOpen(true);

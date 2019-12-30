@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +26,9 @@ import com.example.myalarm.R;
 import com.example.myalarm.db.Users;
 import com.example.myalarm.ui.activity.Main2Activity;
 import com.example.myalarm.utils.SetRing;
+import com.joybar.librarycalendar.data.CalendarDate;
+import com.joybar.librarycalendar.fragment.CalendarViewFragment;
+import com.joybar.librarycalendar.fragment.CalendarViewPagerFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,12 +37,14 @@ import java.util.List;
 
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, CalendarViewFragment.OnDateClickListener,
+        CalendarViewFragment.OnDateCancelListener {
 
-    private TextView tvTitle;
+    private TextView tvTitle, tvDate;
     private EditText etName;
     private EditText etPass;
     private EditText etPass2;
+
     private Button btn1;
     private Button btn2;
 
@@ -52,11 +63,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         myRequetPermission();
     }
+
     private void myRequetPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        } else {
         }
     }
 
@@ -82,6 +94,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     submit();
                 }
                 break;
+            case R.id.btnDate:
+                initFragment();
+                break;
+            case R.id.btnDateEsc:
+                dateBox.setVisibility(View.GONE);
+                break;
+            case R.id.btnDateok:
+                btnDate.setText(mDate);
+                dateBox.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -89,27 +111,79 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (type == 0) {
             tvTitle.setText("登录");
             etPass2.setVisibility(View.GONE);
+            etUserName.setVisibility(View.GONE);
+            etPhone.setVisibility(View.GONE);
+            group.setVisibility(View.GONE);
+            dateBox.setVisibility(View.GONE);
+            btnDate.setVisibility(View.GONE);
             btn1.setText("登录");
             btn2.setText("注册");
         } else if (type == 1) {
             tvTitle.setText("注册");
             etPass2.setVisibility(View.VISIBLE);
+            etUserName.setVisibility(View.VISIBLE);
+            etPhone.setVisibility(View.VISIBLE);
+            group.setVisibility(View.VISIBLE);
+            btnDate.setVisibility(View.VISIBLE);
             btn1.setText("取消");
             btn2.setText("注册");
-
         }
     }
 
+    private EditText etUserName, etPhone;
+    private RadioGroup group;
+    private String sex = "男";
+    private LinearLayout dateBox;
+    private Button btnDateEsc;
+    private Button btnDateok;
+    private Button btnDate;
+    private FrameLayout frameLayout;
+
     private void initView() {
+        btnDateEsc = (Button) findViewById(R.id.btnDateEsc);
+        btnDateok = (Button) findViewById(R.id.btnDateok);
+        frameLayout = (FrameLayout) findViewById(R.id.frameLayout1);
+        btnDate = (Button) findViewById(R.id.btnDate);
+        tvDate = (TextView) findViewById(R.id.tvDate);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         etName = (EditText) findViewById(R.id.etName);
         etPass = (EditText) findViewById(R.id.etPass);
         etPass2 = (EditText) findViewById(R.id.etPass2);
+        etUserName = (EditText) findViewById(R.id.etUserName);
+        etPhone = (EditText) findViewById(R.id.etPhone);
+        group = (RadioGroup) findViewById(R.id.group);
+        dateBox = (LinearLayout) findViewById(R.id.dateBox);
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.man:
+                        sex = "男";
+                        break;
+                    case R.id.woman:
+                        sex = "女";
+                        break;
+                }
+            }
+        });
 
+        dateBox.setVisibility(View.GONE);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
+        btnDateEsc.setOnClickListener(this);
+        btnDateok.setOnClickListener(this);
+        btnDate.setOnClickListener(this);
+    }
+
+    private void initFragment() {
+        dateBox.setVisibility(View.VISIBLE);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction tx = fm.beginTransaction();
+        Fragment fragment = CalendarViewPagerFragment.newInstance(true);
+        tx.replace(R.id.frameLayout1, fragment);
+        tx.commit();
     }
 
     private void submit() {
@@ -117,6 +191,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String etNameString = etName.getText().toString().trim();
         if (TextUtils.isEmpty(etNameString)) {
             Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String etBirthString = btnDate.getText().toString().trim();
+        if (etBirthString.equals("选择生日")) {
+            Toast.makeText(this, "请输入出生日期", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String etUserNameString = etUserName.getText().toString().trim();
+        if (TextUtils.isEmpty(etUserNameString)) {
+            Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String etPhoneString = etPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(etPhoneString)) {
+            Toast.makeText(this, "请输入电话号", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -151,10 +240,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Users u = new Users();
             u.setName(etNameString);
             u.setPassword(etPassString);
+            u.setPhone(etPhoneString);
+            u.setUserName(etUserNameString);
+            u.setSex(sex);
+            u.setBirth(sex);
             if (u.save() > 0) {
                 type = 0;
                 RefreshUI();
             }
         }
+    }
+
+    @Override
+    public void onDateCancel(CalendarDate calendarDate) {
+
+    }
+
+    private String mDate;
+
+    @Override
+    public void onDateClick(CalendarDate calendarDate) {
+        int year = calendarDate.getSolar().solarYear;
+        int month = calendarDate.getSolar().solarMonth;
+        int day = calendarDate.getSolar().solarDay;
+        tvDate.setText(year + "-" + month);
+        mDate = (year + "-" + month + "-" + day);
     }
 }
