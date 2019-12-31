@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import com.example.myalarm.R;
 import com.example.myalarm.db.Users;
 import com.example.myalarm.ui.LoginActivity;
 import com.example.myalarm.ui.activity.AboutActivity;
+import com.example.myalarm.ui.activity.UpdateActivity;
 import com.example.myalarm.ui.activity.UserCenterActivity;
 import com.example.myalarm.utils.PrefUtils;
 import com.orm.SugarRecord;
@@ -37,7 +39,8 @@ public class MineFragment extends Fragment implements View.OnClickListener
         // Required empty public constructor
     }
 
-    private LinearLayout userCenter, updatePwd, about, outLogin;
+    private LinearLayout userCenter, updatePwd, about;
+    private Button outLogin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,29 +68,7 @@ public class MineFragment extends Fragment implements View.OnClickListener
                 startActivity(new Intent(getActivity(), UserCenterActivity.class));
                 break;
             case R.id.updatePwd:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                final EditText editText = new EditText(getActivity());
-                builder.setTitle("修改密码")//设置弹窗的头
-                        .setView(editText)
-                        .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener()
-                        {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                //点击确定的时候升级密码
-                                String name = PrefUtils.getString(getActivity(), "name", "");
-                                String pwd = PrefUtils.getString(getActivity(), "pwd", "");
-                                List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
-                                        name, pwd);
-                                Users users = usersList.get(0);
-                                users.setPassword(editText.getText().toString().trim());
-                                users.update();
-                                Toast.makeText(getActivity(), "修改成功", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
-
+                startActivity(new Intent(getActivity(), UpdateActivity.class));
                 break;
             case R.id.about:
                 startActivity(new Intent(getActivity(), AboutActivity.class));

@@ -129,7 +129,6 @@ public class LoginActivity extends AppCompatActivity implements
         {
             tvTitle.setText("登录");
             etPass2.setVisibility(View.GONE);
-            etUserName.setVisibility(View.GONE);
             etPhone.setVisibility(View.GONE);
             group.setVisibility(View.GONE);
             dateBox.setVisibility(View.GONE);
@@ -140,7 +139,6 @@ public class LoginActivity extends AppCompatActivity implements
         {
             tvTitle.setText("注册");
             etPass2.setVisibility(View.VISIBLE);
-            etUserName.setVisibility(View.VISIBLE);
             etPhone.setVisibility(View.VISIBLE);
             group.setVisibility(View.VISIBLE);
             btnDate.setVisibility(View.VISIBLE);
@@ -149,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private EditText etUserName, etPhone;
+    private EditText  etPhone;
     private RadioGroup group;
     private String sex = "男";
     private LinearLayout dateBox;
@@ -170,7 +168,6 @@ public class LoginActivity extends AppCompatActivity implements
         etName = (EditText) findViewById(R.id.etName);
         etPass = (EditText) findViewById(R.id.etPass);
         etPass2 = (EditText) findViewById(R.id.etPass2);
-        etUserName = (EditText) findViewById(R.id.etUserName);
         etPhone = (EditText) findViewById(R.id.etPhone);
         group = (RadioGroup) findViewById(R.id.group);
         dateBox = (LinearLayout) findViewById(R.id.dateBox);
@@ -238,15 +235,6 @@ public class LoginActivity extends AppCompatActivity implements
                 return;
             }
         }
-        String etUserNameString = etUserName.getText().toString().trim();
-        if (type == 1)
-        {
-            if (TextUtils.isEmpty(etUserNameString))
-            {
-                Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
         String etPhoneString = etPhone.getText().toString().trim();
         if (type == 1)
         {
@@ -298,7 +286,6 @@ public class LoginActivity extends AppCompatActivity implements
             u.setName(etNameString);
             u.setPassword(etPassString);
             u.setPhone(etPhoneString);
-            u.setUserName(etUserNameString);
             u.setSex(sex);
             u.setBirth(btnDate.getText().toString().trim());
             if (u.save() > 0)

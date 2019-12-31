@@ -2,6 +2,7 @@ package com.example.myalarm.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.myalarm.R;
@@ -13,16 +14,17 @@ import java.util.List;
 
 public class UserCenterActivity extends AppCompatActivity
 {//个人中心界面
-    private TextView nameCenter, userCenter2, sexCenter, phoneCenter, birCenter;
+    private TextView userCenter2, sexCenter, phoneCenter, birCenter;
     private CircleImageView touxiang;
+    private TextView tvname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_center);
-        nameCenter = findViewById(R.id.nameCenter);
         userCenter2 = findViewById(R.id.userCenter2);
+        tvname = findViewById(R.id.tvname);
         sexCenter = findViewById(R.id.sexCenter);
         phoneCenter = findViewById(R.id.phoneCenter);
         birCenter = findViewById(R.id.birCenter);
@@ -32,7 +34,6 @@ public class UserCenterActivity extends AppCompatActivity
         List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
                 name, pwd);//遍历数据库
         Users users = usersList.get(0);//得到该用户对象
-        nameCenter.setText("姓名：" + users.getUserName());
         birCenter.setText("生日：" + users.getBirth());
         userCenter2.setText("用户名：" + users.getName());
         phoneCenter.setText("电话：：" + users.getPhone());
@@ -45,5 +46,13 @@ public class UserCenterActivity extends AppCompatActivity
             sexCenter.setText("性别：女");
             touxiang.setImageDrawable(getResources().getDrawable(R.drawable.man));
         }
+        tvname.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
     }
 }

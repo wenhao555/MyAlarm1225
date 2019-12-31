@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ public class GiftActivity extends AppCompatActivity
     private TextView names, bir;
     private ImageView liwu;
     private LinearLayout tiaoxuan;
+    private TextView tvname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -26,7 +28,16 @@ public class GiftActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gift);
         names = findViewById(R.id.name);
+        tvname = findViewById(R.id.tvname);
         bir = findViewById(R.id.bir);
+        tvname.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+            }
+        });
         liwu = findViewById(R.id.liwu);
         tiaoxuan = findViewById(R.id.tiaoxuan);
         String tag = getIntent().getStringExtra("tag");
@@ -35,7 +46,7 @@ public class GiftActivity extends AppCompatActivity
         List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
                 name, pwd);//遍历数据库
         Users users = usersList.get(0);//得到该用户对象
-        names.setText("姓名：" + users.getUserName());
+        names.setText("用户名：" + users.getName());
         bir.setText("生日：" + users.getBirth());
         if (tag.equals("1"))
         {

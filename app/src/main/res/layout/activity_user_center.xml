@@ -19,19 +19,19 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_margin="15dp"
-            android:text="个人中心"
+            android:text="返回"
             android:textColor="#FFF"
             android:textSize="25sp" />
 
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="50dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:background="@android:drawable/ic_input_add"
             android:padding="10dp"
-            android:visibility="gone" />
+            android:text="个人中心"
+            android:textColor="#FFF"
+            android:textSize="25sp" />
 
 
         <RelativeLayout
@@ -55,18 +55,9 @@
             android:src="@drawable/man" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/nameCenter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:text="姓名："
-        android:textColor="#000000"
-        android:textSize="22sp" />
 
     <View
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#cccccc" />
@@ -125,4 +116,5 @@
         android:text="生日："
         android:textColor="#000000"
         android:textSize="22sp" />
+
 </LinearLayout>
