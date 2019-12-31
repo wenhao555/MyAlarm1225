@@ -16,6 +16,7 @@
         android:value="com.example.myalarm.db" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- SDCard写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -27,7 +28,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.activity.AboutActivity"></activity>
+        <activity android:name=".ui.activity.WebActivity"></activity>
+        <activity android:name=".ui.activity.GiftActivity" />
+        <activity android:name=".ui.activity.AboutActivity" />
         <activity android:name=".ui.activity.UserCenterActivity" />
         <activity android:name=".ui.activity.Main2Activity" />
         <activity android:name=".ui.BaseActivity" />

@@ -15,6 +15,7 @@ import com.example.myalarm.ui.fragment.SearchFragment;
 import com.example.myalarm.utils.FragmentTabHost;
 
 public class Main2Activity extends AppCompatActivity {
+    //有底部导航的主界面
     //定义数组来存放Fragment界面
     private Class mFragmentArray[] = {AlarmFragment.class, SearchFragment.class, GiftFragment.class, MineFragment.class};
     //定义数组来存放按钮图片

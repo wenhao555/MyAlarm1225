@@ -25,6 +25,8 @@ import com.example.myalarm.MyService;
 import com.example.myalarm.R;
 import com.example.myalarm.db.Users;
 import com.example.myalarm.ui.activity.Main2Activity;
+import com.example.myalarm.utils.CircleImageView;
+import com.example.myalarm.utils.PrefUtils;
 import com.example.myalarm.utils.SetRing;
 import com.joybar.librarycalendar.data.CalendarDate;
 import com.joybar.librarycalendar.fragment.CalendarViewFragment;
@@ -41,7 +43,8 @@ public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener,
         CalendarViewFragment.OnDateClickListener,
         CalendarViewPagerFragment.OnPageChangeListener,
-        CalendarViewFragment.OnDateCancelListener {
+        CalendarViewFragment.OnDateCancelListener
+{
 
     private TextView tvTitle, tvDate;
     private EditText etName;
@@ -54,7 +57,8 @@ public class LoginActivity extends AppCompatActivity implements
     private int type = 0;//0-登录 1-注册
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
@@ -67,33 +71,42 @@ public class LoginActivity extends AppCompatActivity implements
         myRequetPermission();
     }
 
-    private void myRequetPermission() {
+    private void myRequetPermission()
+    {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        } else {
+        } else
+        {
         }
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.btn1:
-                if (type == 0) {
+                if (type == 0)
+                {
                     submit();
-                } else if (type == 1) {
+                } else if (type == 1)
+                {
                     type = 0;
                     RefreshUI();
                 }
                 break;
             case R.id.btn2:
-                if (type == 0) {
+                if (type == 0)
+                {
                     type = 1;
                     RefreshUI();
                     etName.setText("");
                     etPass2.setText("");
                     etPass.setText("");
-                } else if (type == 1) {
+                } else if (type == 1)
+                {
                     submit();
                 }
                 break;
@@ -110,8 +123,10 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void RefreshUI() {
-        if (type == 0) {
+    private void RefreshUI()
+    {
+        if (type == 0)
+        {
             tvTitle.setText("登录");
             etPass2.setVisibility(View.GONE);
             etUserName.setVisibility(View.GONE);
@@ -121,7 +136,8 @@ public class LoginActivity extends AppCompatActivity implements
             btnDate.setVisibility(View.GONE);
             btn1.setText("登录");
             btn2.setText("注册");
-        } else if (type == 1) {
+        } else if (type == 1)
+        {
             tvTitle.setText("注册");
             etPass2.setVisibility(View.VISIBLE);
             etUserName.setVisibility(View.VISIBLE);
@@ -141,8 +157,10 @@ public class LoginActivity extends AppCompatActivity implements
     private Button btnDateok;
     private Button btnDate;
     private FrameLayout frameLayout;
+    private CircleImageView touxiang;
 
-    private void initView() {
+    private void initView()
+    {
         btnDateEsc = (Button) findViewById(R.id.btnDateEsc);
         btnDateok = (Button) findViewById(R.id.btnDateok);
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout1);
@@ -158,15 +176,21 @@ public class LoginActivity extends AppCompatActivity implements
         dateBox = (LinearLayout) findViewById(R.id.dateBox);
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        touxiang = (CircleImageView) findViewById(R.id.tuoxiang);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                switch (checkedId)
+                {
                     case R.id.man:
                         sex = "男";
+                        touxiang.setImageResource(R.mipmap.man);
                         break;
                     case R.id.woman:
                         sex = "女";
+                        touxiang.setImageResource(R.mipmap.woman);
                         break;
                 }
             }
@@ -181,11 +205,13 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPageChange(int year, int month) {
+    public void onPageChange(int year, int month)
+    {
         tvDate.setText(year + "-" + month);
     }
 
-    private void initFragment() {
+    private void initFragment()
+    {
         dateBox.setVisibility(View.VISIBLE);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction tx = fm.beginTransaction();
@@ -194,63 +220,80 @@ public class LoginActivity extends AppCompatActivity implements
         tx.commit();
     }
 
-    private void submit() {
+    private void submit()
+    {
         // validate
         String etNameString = etName.getText().toString().trim();
-        if (TextUtils.isEmpty(etNameString)) {
+        if (TextUtils.isEmpty(etNameString))
+        {
             Toast.makeText(this, "请输入用户名", Toast.LENGTH_SHORT).show();
             return;
         }
         String etBirthString = btnDate.getText().toString().trim();
-        if (type == 1) {
-            if (etBirthString.equals("选择生日")) {
+        if (type == 1)
+        {
+            if (etBirthString.equals("选择生日"))
+            {
                 Toast.makeText(this, "请输入出生日期", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
         String etUserNameString = etUserName.getText().toString().trim();
-        if (type == 1) {
-            if (TextUtils.isEmpty(etUserNameString)) {
+        if (type == 1)
+        {
+            if (TextUtils.isEmpty(etUserNameString))
+            {
                 Toast.makeText(this, "请输入姓名", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
         String etPhoneString = etPhone.getText().toString().trim();
-        if (type == 1) {
-            if (TextUtils.isEmpty(etPhoneString)) {
+        if (type == 1)
+        {
+            if (TextUtils.isEmpty(etPhoneString))
+            {
                 Toast.makeText(this, "请输入电话号", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
 
         String etPassString = etPass.getText().toString().trim();
-        if (TextUtils.isEmpty(etPassString)) {
+        if (TextUtils.isEmpty(etPassString))
+        {
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
 
         String etPass2String = etPass2.getText().toString().trim();
-        if (type == 1 && TextUtils.isEmpty(etPass2String)) {
+        if (type == 1 && TextUtils.isEmpty(etPass2String))
+        {
             Toast.makeText(this, "请再次输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (type == 1 && !etPassString.equals(etPass2String)) {
+        if (type == 1 && !etPassString.equals(etPass2String))
+        {
             Toast.makeText(this, "两次密码不同", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (type == 0) {
+        if (type == 0)
+        {
             List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
                     etNameString, etPassString);
-            if (!usersList.isEmpty()) {
+            if (!usersList.isEmpty())
+            {
                 Users u = usersList.get(0);
                 Global.getInstance().setMe(u);
+                PrefUtils.setString(LoginActivity.this, "name", etNameString);
+                PrefUtils.setString(LoginActivity.this, "pwd", etPassString);
                 startActivity(new Intent(LoginActivity.this, Main2Activity.class));
                 finish();
-            } else {
+            } else
+            {
                 Toast.makeText(this, "登录错误", Toast.LENGTH_SHORT).show();
             }
-        } else if (type == 1) {
+        } else if (type == 1)
+        {
             Users u = new Users();
             u.setName(etNameString);
             u.setPassword(etPassString);
@@ -258,7 +301,8 @@ public class LoginActivity extends AppCompatActivity implements
             u.setUserName(etUserNameString);
             u.setSex(sex);
             u.setBirth(btnDate.getText().toString().trim());
-            if (u.save() > 0) {
+            if (u.save() > 0)
+            {
                 type = 0;
                 RefreshUI();
             }
@@ -266,14 +310,16 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onDateCancel(CalendarDate calendarDate) {
+    public void onDateCancel(CalendarDate calendarDate)
+    {
 
     }
 
     private String mDate;
 
     @Override
-    public void onDateClick(CalendarDate calendarDate) {
+    public void onDateClick(CalendarDate calendarDate)
+    {
         int year = calendarDate.getSolar().solarYear;
         int month = calendarDate.getSolar().solarMonth;
         int day = calendarDate.getSolar().solarDay;

@@ -18,6 +18,7 @@ import com.example.myalarm.db.Users;
 import com.example.myalarm.ui.LoginActivity;
 import com.example.myalarm.ui.activity.AboutActivity;
 import com.example.myalarm.ui.activity.UserCenterActivity;
+import com.example.myalarm.utils.PrefUtils;
 import com.orm.SugarRecord;
 
 import java.util.List;
@@ -25,10 +26,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MineFragment extends Fragment implements View.OnClickListener {
+public class MineFragment extends Fragment implements View.OnClickListener
+{
+    /**
+     * 我的界面
+     */
 
-
-    public MineFragment() {
+    public MineFragment()
+    {
         // Required empty public constructor
     }
 
@@ -36,7 +41,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         userCenter = view.findViewById(R.id.userCenter);
         updatePwd = view.findViewById(R.id.updatePwd);
@@ -51,23 +57,29 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.userCenter://点击用户中心
                 startActivity(new Intent(getActivity(), UserCenterActivity.class));
                 break;
             case R.id.updatePwd:
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 final EditText editText = new EditText(getActivity());
-                builder.setTitle("修改密码")
+                builder.setTitle("修改密码")//设置弹窗的头
                         .setView(editText)
                         .setNegativeButton("取消", null)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener()
+                        {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
                                 //点击确定的时候升级密码
+                                String name = PrefUtils.getString(getActivity(), "name", "");
+                                String pwd = PrefUtils.getString(getActivity(), "pwd", "");
                                 List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
-                                        "123", "123");
+                                        name, pwd);
                                 Users users = usersList.get(0);
                                 users.setPassword(editText.getText().toString().trim());
                                 users.update();

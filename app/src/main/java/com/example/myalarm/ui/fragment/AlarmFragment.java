@@ -39,10 +39,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlarmFragment extends Fragment implements View.OnClickListener {
+public class AlarmFragment extends Fragment implements View.OnClickListener
+{
+//闹铃列表界面
 
-
-    public AlarmFragment() {
+    public AlarmFragment()
+    {
         // Required empty public constructor
     }
 
@@ -52,7 +54,8 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
         btnAdd = view.findViewById(R.id.btnAdd);
         alarmList = view.findViewById(R.id.alarmList);
@@ -64,19 +67,23 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btnAdd) {
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.btnAdd)
+        {
             ShowPopMenu(v);
         }
     }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
         RefreshList();
     }
 
-    private void ShowPopMenu(View v) {
+    private void ShowPopMenu(View v)
+    {
         //创建弹出式菜单对象（最低版本11）
         PopupMenu popup = new PopupMenu(getActivity(), v);//第二个参数是绑定的那个view
         //获取菜单填充器
@@ -84,10 +91,13 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         //填充菜单
         inflater.inflate(R.menu.menu_set, popup.getMenu());
         //绑定菜单项的点击事件
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener()
+        {
             @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                if (menuItem.getTitle().toString().equals("新增")) {
+            public boolean onMenuItemClick(MenuItem menuItem)
+            {
+                if (menuItem.getTitle().toString().equals("新增"))
+                {
                     ShowAdd();
                 }
 //                else if (menuItem.getTitle().toString().equals("设置")) {
@@ -117,14 +127,17 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         popup.show();
     }
 
-    private void ShowAdd() {
+    private void ShowAdd()
+    {
         startActivity(new Intent(getActivity(), AlarmActivity.class));
     }
 
     private List<Alarms> alarmsList = new ArrayList<>();
 
-    class AlarmAdapter extends BaseAdapter {
-        class ViewHolder {
+    class AlarmAdapter extends BaseAdapter
+    {
+        class ViewHolder
+        {
             public TextView tvname, tvinfo, tvFlag, tvtime;
             public ImageView imgFlag;
             public Switch aSwitch;
@@ -135,22 +148,26 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         AlarmAdapter.ViewHolder viewHolder = null;
 
         @Override
-        public int getCount() {
+        public int getCount()
+        {
             return alarmsList.size();
         }
 
         @Override
-        public Alarms getItem(int position) {
+        public Alarms getItem(int position)
+        {
             return alarmsList.get(position);
         }
 
         @Override
-        public long getItemId(int position) {
+        public long getItemId(int position)
+        {
             return 0;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
             final Alarms entity = getItem(position);
 
             convertView = LayoutInflater.from(getActivity()).inflate(
@@ -187,23 +204,29 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
             viewHolder.box.setTag(entity.getId());
             viewHolder.aSwitch.setTag(entity.getId());
 
-            viewHolder.box.setOnClickListener(new View.OnClickListener() {
+            viewHolder.box.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     final Alarms alarms = Alarms.findById(Alarms.class, (Long) (v.getTag()));
                     AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
                             .setTitle(alarms.getName())
-                            .setPositiveButton("编辑", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("编辑", new DialogInterface.OnClickListener()
+                            {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(DialogInterface dialog, int which)
+                                {
                                     Intent intent = new Intent(getActivity(), AlarmActivity.class);
                                     intent.putExtra("data", alarms.getId());
                                     startActivity(intent);
                                 }
                             })
-                            .setNegativeButton("删除", new DialogInterface.OnClickListener() {
+                            .setNegativeButton("删除", new DialogInterface.OnClickListener()
+                            {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                                public void onClick(DialogInterface dialog, int which)
+                                {
                                     alarms.delete();
                                     RefreshList();
                                 }
@@ -211,9 +234,11 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
                     dialog.show();
                 }
             });
-            viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            viewHolder.aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+            {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
                     Alarms alarms = Alarms.findById(Alarms.class, (Long) (buttonView.getTag()));
                     alarms.setOpen(isChecked);
                     alarms.save();
@@ -223,27 +248,36 @@ public class AlarmFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void RefreshList() {
+    private void RefreshList()
+    {
         alarmsList = Alarms.listAll(Alarms.class);
-        Collections.sort(alarmsList, new Comparator<Alarms>() {
+        Collections.sort(alarmsList, new Comparator<Alarms>()
+        {
             @Override
-            public int compare(Alarms o1, Alarms o2) {
-                try {
+            public int compare(Alarms o1, Alarms o2)
+            {
+                try
+                {
                     return (int) (TimeUtil.getAlarmTime(o2.getRemark()) - TimeUtil.getAlarmTime(o1.getRemark()));
-                } catch (ParseException e) {
+                } catch (ParseException e)
+                {
                     e.printStackTrace();
                     return 0;
                 }
             }
         });
-        if (Global.getInstance().getMe() != null) {
-            for (int i = 0; i < alarmsList.size(); i++) {
-                if (!alarmsList.get(i).getUser().equals(Global.getInstance().getMe().getName())) {
+        if (Global.getInstance().getMe() != null)
+        {
+            for (int i = 0; i < alarmsList.size(); i++)
+            {
+                if (!alarmsList.get(i).getUser().equals(Global.getInstance().getMe().getName()))
+                {
                     alarmsList.remove(i--);
                 }
             }
         }
-        if (alarmAdapter != null) {
+        if (alarmAdapter != null)
+        {
             alarmAdapter.notifyDataSetChanged();
         }
     }

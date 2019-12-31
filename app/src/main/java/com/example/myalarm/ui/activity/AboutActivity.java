@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.example.myalarm.R;
 
 public class AboutActivity extends AppCompatActivity {
-
+//关于界面
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

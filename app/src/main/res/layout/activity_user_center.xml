@@ -41,10 +41,25 @@
             android:background="@color/colorPrimary"></RelativeLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <com.example.myalarm.utils.CircleImageView
+            android:id="@+id/tuoxiang"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/man" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/nameCenter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
         android:singleLine="true"
         android:text="姓名："
