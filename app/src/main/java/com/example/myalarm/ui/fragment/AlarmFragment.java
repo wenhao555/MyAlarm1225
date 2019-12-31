@@ -29,6 +29,7 @@ import com.example.myalarm.ui.AlarmActivity;
 import com.example.myalarm.ui.MainActivity;
 import com.example.myalarm.utils.SetRing;
 import com.example.myalarm.utils.TimeUtil;
+import com.orm.SugarRecord;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class AlarmFragment extends Fragment implements View.OnClickListener
     private Button btnAdd;
     private ListView alarmList;
     private AlarmAdapter alarmAdapter;
+    private Button fin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,9 +61,11 @@ public class AlarmFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
         btnAdd = view.findViewById(R.id.btnAdd);
         alarmList = view.findViewById(R.id.alarmList);
+        fin = view.findViewById(R.id.fin);
         alarmAdapter = new AlarmAdapter();
         alarmList.setAdapter(alarmAdapter);
         btnAdd.setOnClickListener(this);
+        fin.setOnClickListener(this);
         SetRing.CreateDir();
         return view;
     }
@@ -72,6 +76,23 @@ public class AlarmFragment extends Fragment implements View.OnClickListener
         if (v.getId() == R.id.btnAdd)
         {
             ShowPopMenu(v);
+        } else if (v.getId() == R.id.fin)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("提示")
+                    .setMessage("是否全部删除")
+                    .setPositiveButton("确认", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            SugarRecord.deleteAll(Alarms.class);
+                            RefreshList();
+                        }
+                    })
+                    .setNeutralButton("取消", null)
+                    .show();
+
         }
     }
 

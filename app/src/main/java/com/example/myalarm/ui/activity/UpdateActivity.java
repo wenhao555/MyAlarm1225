@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.myalarm.R;
 import com.example.myalarm.db.Users;
+import com.example.myalarm.ui.LoginActivity;
 import com.example.myalarm.utils.PrefUtils;
 
 import java.util.List;
@@ -30,42 +31,54 @@ public class UpdateActivity extends AppCompatActivity
         newPwd = findViewById(R.id.newPwd);
         newPwd2 = findViewById(R.id.newPwd2);
         fin = findViewById(R.id.fin);
-        String name = PrefUtils.getString(UpdateActivity.this, "name", "");
-        String pwd = PrefUtils.getString(UpdateActivity.this, "pwd", "");
-        List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
-                name, pwd);
-        Users users = usersList.get(0);
-        if (oldPwd.getText().toString().equals(pwd))
-        {
-            if (newPwd.getText().toString().equals(""))
-            {
-                if (newPwd2.getText().toString().equals(""))
-                {
-                    if (newPwd2.getText().toString().equals(newPwd.getText().toString()))
-                    {
-                        users.setPassword(newPwd.getText().toString());
-                        users.update();
-                        Toast.makeText(UpdateActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-                    }
-                } else
-                {
-                    Toast.makeText(this, "请输入确认密码", Toast.LENGTH_SHORT).show();
-                }
-            } else
-            {
-                Toast.makeText(this, "请输入新密码", Toast.LENGTH_SHORT).show();
-            }
-        } else
-        {
-            Toast.makeText(this, "旧密码错误", Toast.LENGTH_SHORT).show();
-        }
+
 
         fin.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                finish();
+                String name = PrefUtils.getString(UpdateActivity.this, "name", "");
+                String pwd = PrefUtils.getString(UpdateActivity.this, "pwd", "");
+                List<Users> usersList = Users.find(Users.class, "name = ? AND password = ?",
+                        name, pwd);
+                Users users = usersList.get(0);
+                if (!oldPwd.getText().toString().equals(""))
+                {
+                    if (oldPwd.getText().toString().equals(pwd))
+                    {
+                        if (!newPwd.getText().toString().equals(""))
+                        {
+                            if (!newPwd2.getText().toString().equals(""))
+                            {
+                                if (newPwd2.getText().toString().equals(newPwd.getText().toString()))
+                                {
+                                    users.setPassword(newPwd.getText().toString());
+                                    users.update();
+                                    PrefUtils.setString(UpdateActivity.this, "pwd", newPwd.getText().toString());
+                                    Toast.makeText(UpdateActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else
+                                {
+                                    Toast.makeText(UpdateActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
+                                }
+                            } else
+                            {
+                                Toast.makeText(UpdateActivity.this, "请输入确认密码", Toast.LENGTH_SHORT).show();
+                            }
+                        } else
+                        {
+                            Toast.makeText(UpdateActivity.this, "请输入新密码", Toast.LENGTH_SHORT).show();
+                        }
+                    } else
+                    {
+                        Toast.makeText(UpdateActivity.this, "旧密码错误", Toast.LENGTH_SHORT).show();
+                    }
+                } else
+                {
+                    Toast.makeText(UpdateActivity.this, "原密码输入为空", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         tvname.setOnClickListener(new View.OnClickListener()
