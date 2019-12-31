@@ -105,6 +105,10 @@ public class LoginActivity extends AppCompatActivity implements
                     etName.setText("");
                     etPass2.setText("");
                     etPass.setText("");
+                    etPhone.setText("");
+                    group.clearCheck();
+                    btnDate.setText("选择日期");
+                    touxiang.setImageResource(R.mipmap.man);
                 } else if (type == 1)
                 {
                     submit();
@@ -147,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private EditText  etPhone;
+    private EditText etPhone;
     private RadioGroup group;
     private String sex = "男";
     private LinearLayout dateBox;

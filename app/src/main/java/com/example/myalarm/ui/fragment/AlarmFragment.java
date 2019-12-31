@@ -59,9 +59,9 @@ public class AlarmFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_alarm, container, false);
-        btnAdd = view.findViewById(R.id.btnAdd);
-        alarmList = view.findViewById(R.id.alarmList);
-        fin = view.findViewById(R.id.fin);
+        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        alarmList = (ListView) view.findViewById(R.id.alarmList);
+        fin = (Button) view.findViewById(R.id.fin);
         alarmAdapter = new AlarmAdapter();
         alarmList.setAdapter(alarmAdapter);
         btnAdd.setOnClickListener(this);

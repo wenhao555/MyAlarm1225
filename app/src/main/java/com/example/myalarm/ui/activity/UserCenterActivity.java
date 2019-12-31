@@ -23,11 +23,11 @@ public class UserCenterActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_center);
-        userCenter2 = findViewById(R.id.userCenter2);
-        tvname = findViewById(R.id.tvname);
-        sexCenter = findViewById(R.id.sexCenter);
-        phoneCenter = findViewById(R.id.phoneCenter);
-        birCenter = findViewById(R.id.birCenter);
+        userCenter2 = (TextView) findViewById(R.id.userCenter2);
+        tvname = (TextView) findViewById(R.id.tvname);
+        sexCenter = (TextView) findViewById(R.id.sexCenter);
+        phoneCenter = (TextView) findViewById(R.id.phoneCenter);
+        birCenter = (TextView) findViewById(R.id.birCenter);
         touxiang = (CircleImageView) findViewById(R.id.tuoxiang);
         String name = PrefUtils.getString(this, "name", "");//得到账号缓存
         String pwd = PrefUtils.getString(this, "pwd", "");//得到密码缓存

@@ -27,9 +27,11 @@ public class GiftActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gift);
-        names = findViewById(R.id.name);
-        tvname = findViewById(R.id.tvname);
-        bir = findViewById(R.id.bir);
+        names = (TextView) findViewById(R.id.name);
+        tvname = (TextView) findViewById(R.id.tvname);
+        bir = (TextView) findViewById(R.id.bir);
+        liwu = (ImageView) findViewById(R.id.liwu);
+        tiaoxuan = (LinearLayout) findViewById(R.id.tiaoxuan);
         tvname.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -38,8 +40,6 @@ public class GiftActivity extends AppCompatActivity
                 finish();
             }
         });
-        liwu = findViewById(R.id.liwu);
-        tiaoxuan = findViewById(R.id.tiaoxuan);
         String tag = getIntent().getStringExtra("tag");
         String name = PrefUtils.getString(this, "name", "");//得到账号缓存
         String pwd = PrefUtils.getString(this, "pwd", "");//得到密码缓存

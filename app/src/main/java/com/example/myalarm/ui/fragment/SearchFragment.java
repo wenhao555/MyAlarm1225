@@ -1,5 +1,6 @@
 package com.example.myalarm.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -54,19 +56,20 @@ public class SearchFragment extends Fragment implements View.OnClickListener
     private Button btnEndTime;
     private EditText etKeyword;
 
+    @SuppressLint("WrongViewCast")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
-        btnStartTime = view.findViewById(R.id.btnStartTime);
-        btnEndTime = view.findViewById(R.id.btnEndTime);
-        etKeyword = view.findViewById(R.id.etKeyword);
-        btnSearch = view.findViewById(R.id.btnSearch);
-        alarmList = view.findViewById(R.id.alarmList);
-        searchBox = view.findViewById(R.id.searchBox);
-        tvSearch = view.findViewById(R.id.tvSearch);
+        btnStartTime = (Button) view.findViewById(R.id.btnStartTime);
+        btnEndTime = (Button) view.findViewById(R.id.btnEndTime);
+        etKeyword = (EditText) view.findViewById(R.id.etKeyword);
+        btnSearch = (Button) view.findViewById(R.id.btnSearch);
+        alarmList = (ListView) view.findViewById(R.id.alarmList);
+        searchBox = (RelativeLayout) view.findViewById(R.id.searchBox);
+        tvSearch = (Button) view.findViewById(R.id.tvSearch);
         searchBox.setVisibility(View.GONE);
         alarmAdapter = new AlarmAdapter();
         alarmList.setAdapter(alarmAdapter);

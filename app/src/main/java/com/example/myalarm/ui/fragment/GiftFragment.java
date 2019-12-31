@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.myalarm.R;
 import com.example.myalarm.ui.activity.GiftActivity;
@@ -34,11 +35,11 @@ public class GiftFragment extends Fragment implements View.OnClickListener
     {
         View view = inflater.inflate(R.layout.fragment_gift, container, false);
         // Inflate the layout for this fragment
-        liwu1 = view.findViewById(R.id.liwu1);
-        liwu2 = view.findViewById(R.id.liwu2);
-        liwu3 = view.findViewById(R.id.liwu3);
-        liwu4 = view.findViewById(R.id.liwu4);
-        liwu5 = view.findViewById(R.id.liwu5);
+        liwu1 = (LinearLayout) view.findViewById(R.id.liwu1);
+        liwu2 = (LinearLayout) view.findViewById(R.id.liwu2);
+        liwu3 = (LinearLayout) view.findViewById(R.id.liwu3);
+        liwu4 = (LinearLayout) view.findViewById(R.id.liwu4);
+        liwu5 = (LinearLayout) view.findViewById(R.id.liwu5);
 
         liwu1.setOnClickListener(this);
         liwu2.setOnClickListener(this);

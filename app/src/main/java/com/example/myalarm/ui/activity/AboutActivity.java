@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        tvname = findViewById(R.id.tvname);
+        tvname = (TextView)findViewById(R.id.tvname);
         tvname.setOnClickListener(new View.OnClickListener()
         {
             @Override

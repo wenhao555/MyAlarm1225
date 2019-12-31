@@ -47,10 +47,10 @@ public class MineFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
-        userCenter = view.findViewById(R.id.userCenter);
-        updatePwd = view.findViewById(R.id.updatePwd);
-        about = view.findViewById(R.id.about);
-        outLogin = view.findViewById(R.id.outLogin);
+        userCenter = (LinearLayout) view.findViewById(R.id.userCenter);
+        updatePwd = (LinearLayout) view.findViewById(R.id.updatePwd);
+        about = (LinearLayout) view.findViewById(R.id.about);
+        outLogin = (Button) view.findViewById(R.id.outLogin);
 
         userCenter.setOnClickListener(this);
         updatePwd.setOnClickListener(this);

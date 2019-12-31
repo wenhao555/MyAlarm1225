@@ -26,11 +26,11 @@ public class UpdateActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
-        oldPwd = findViewById(R.id.oldPwd);
-        tvname = findViewById(R.id.tvname);
-        newPwd = findViewById(R.id.newPwd);
-        newPwd2 = findViewById(R.id.newPwd2);
-        fin = findViewById(R.id.fin);
+        oldPwd = (EditText) findViewById(R.id.oldPwd);
+        tvname = (TextView) findViewById(R.id.tvname);
+        newPwd = (EditText) findViewById(R.id.newPwd);
+        newPwd2 = (EditText) findViewById(R.id.newPwd2);
+        fin = (Button) findViewById(R.id.fin);
 
 
         fin.setOnClickListener(new View.OnClickListener()

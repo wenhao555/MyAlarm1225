@@ -20,9 +20,9 @@ public class WebActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        web = findViewById(R.id.web);
+        web = (WebView) findViewById(R.id.web);
         web.loadUrl("http://www.lipin-bj.cn/news/6014");//加载网页
-        tvname = findViewById(R.id.tvname);
+        tvname =(TextView) findViewById(R.id.tvname);
         tvname.setOnClickListener(new View.OnClickListener()
         {
             @Override
